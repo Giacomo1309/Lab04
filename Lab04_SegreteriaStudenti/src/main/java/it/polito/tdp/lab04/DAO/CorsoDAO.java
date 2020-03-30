@@ -34,10 +34,10 @@ public class CorsoDAO {
 				String nome = rs.getString("nome");
 				int periodoDidattico = rs.getInt("pd");
 
-				System.out.println(codins + " " + numeroCrediti + " " + nome + " " + periodoDidattico);
+			//	System.out.println(codins + " " + numeroCrediti + " " + nome + " " + periodoDidattico);
+				Corso c = new Corso(codins,numeroCrediti,nome,periodoDidattico);
+				corsi.add(c);
 
-				// Crea un nuovo JAVA Bean Corso
-				// Aggiungi il nuovo oggetto Corso alla lista corsi
 			}
 
 			conn.close();
@@ -55,15 +55,49 @@ public class CorsoDAO {
 	/*
 	 * Dato un codice insegnamento, ottengo il corso
 	 */
-	public void getCorso(Corso corso) {
-		// TODO
+	public Corso getCorso(Corso corso) { //come fa ad essere void un get???
+		return this.getTuttiICorsi().get(this.getTuttiICorsi().indexOf(corso));
 	}
 
 	/*
 	 * Ottengo tutti gli studenti iscritti al Corso
 	 */
-	public void getStudentiIscrittiAlCorso(Corso corso) {
-		// TODO
+	public List<Studente> getStudentiIscrittiAlCorso(Corso corso) {
+		
+		final String sql = "SELECT i.matricola, s.cognome , s.nome , s.cds" + 
+				" FROM studente AS s , iscrizione AS i " + 
+				"WHERE i.matricola = s.matricola AND codins = ? ";
+
+		List<Studente> studenti = new LinkedList<Studente>();
+
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setString(1, corso.getCodins());
+
+			ResultSet rs = st.executeQuery();
+
+			while (rs.next()) {
+
+				Integer matricola = rs.getInt("matricola");
+				String cognome = rs.getString("cognome");
+				String nome = rs.getString("nome");
+				String cds = rs.getString("cds");
+				Studente s = new Studente(matricola,cognome,nome,cds);
+				studenti.add(s);
+
+				
+			}
+
+			conn.close();
+			
+			return studenti;
+			
+
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			throw new RuntimeException("Errore Db", e);
+		}
 	}
 
 	/*

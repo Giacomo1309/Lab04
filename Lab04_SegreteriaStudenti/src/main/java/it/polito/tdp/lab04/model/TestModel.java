@@ -5,10 +5,15 @@ public class TestModel {
 	public static void main(String[] args) {
 
 		Model model = new Model();
+		Corso corso = new Corso("02CIXPG",null,null,null);
+		Studente studente = new Studente(146101,"","","");
 		
-		/*
-		 * 	Write here your test model
-		 */
+	//	System.out.println(model.getStudentiIscrittiAlCorso(corso));
+		
+	//	System.out.println(model.studenteIscrittoCorso(studente, corso));
+	//	System.out.println(model.getTuttiStudenti());
+		System.out.println(model.getTuttiICorsiByStudente(studente)) ;
+		
 
 	}
 
