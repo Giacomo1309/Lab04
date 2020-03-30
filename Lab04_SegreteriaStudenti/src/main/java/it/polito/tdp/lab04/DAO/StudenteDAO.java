@@ -54,14 +54,9 @@ public List<Studente> getTuttiStudenti() {
  * per vedere se uno studente e gia iscritto ad un corso parto da qui.
  */
 public List<Corso> getTuttiICorsiByStudente(Studente studente) {
-		String sql = "SELECT c.codins,c.crediti,c.nome,c.pd" + 
-				"FROM corso AS c , iscrizione AS i" + 
-				"WHERE c.codins = i.codins AND matricola = ?" ;
+	final String sql = "SELECT * FROM iscrizione as i, corso as c WHERE i.matricola = ? AND i.codins = c.codins"  ;
+
 				
-		final String s = "SELECT c.codins, c.nome,c.crediti,c.pd" + 
-				"FROM corso AS c, iscrizione AS i" + 
-				"WHERE c.codins = i.codins AND matricola = ? "+
-				"GROUP BY c.codins";
 			// String sql = "SELECT * FROM corso";
 
 		List<Corso> corsi = new LinkedList<Corso>();
