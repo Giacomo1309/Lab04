@@ -67,7 +67,16 @@ import javafx.event.ActionEvent;
 
 	    @FXML
 	    void doCercaIscrittoCorso(ActionEvent event) {
-
+	    	Corso q = new Corso(null,null,null,null);
+	    	for(Corso c : model.getTuttiICorsi()) {
+	    		if(c.getNome().compareTo(tendinaCorsi.getValue())==0) {
+	    			 q = new Corso(c.getCodins(),c.getCrediti(),c.getNome(),c.getPd());
+	    		} 
+				
+	    	}
+	    	for(Studente s : model.getStudentiIscrittiAlCorso(q)) {
+	    		txtRisultato.appendText(s.toString()+"\n");
+	    	}
 	    }
 
 	    @FXML
