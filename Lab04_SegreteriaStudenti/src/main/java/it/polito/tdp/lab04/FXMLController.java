@@ -93,7 +93,7 @@ import javafx.event.ActionEvent;
 	    		tendinaCorsi.getItems().add(s);
 	    	}
 	    }
-
+//ciao
 	    @FXML // This method is called by the FXMLLoader when initialization is complete
 	    void initialize() {
 	    	  txtMatricola.setEditable(true);
